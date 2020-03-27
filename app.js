@@ -1,11 +1,9 @@
-// console.log('Start')
+const request = require('request')
+const API_KEY = require('./utils/darkSky')
 
-// setTimeout(() => {
-//   console.log('3 secs timer')
-// }, 3000)
+const url = 'https://api.darksky.net/forecast/' + API_KEY
 
-// setTimeout(() => {
-//   console.log('0 secs timer')
-// }, 0)
-
-// console.log('End')
+request({ url: url }, (error, response) => {
+  const data = JSON.parse(response.body)
+  comsole.log(data.currently)
+})
