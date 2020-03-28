@@ -7,16 +7,32 @@ request({ url: url, json: true }, (error, response) => {
   const temperature = response.body.currently.temperature
   const rainChance = response.body.currently.precipIntensity
   const summary = response.body.currently.summary
-  console.log('Current weather: ' + summary)
-  console.log('This is currently ' + temperature + ' degrees out. There is a ' + rainChance + '% chance of rain.')
+
+  if(error) {
+    console.log('Unable to connect to weather service')
+  }else if(response.body.error) {
+    console.log('Location not found')
+  }else{
+    console.log('Current weather: ' + summary)
+    console.log('This is currently ' + temperature + ' degrees out. There is a ' + rainChance + '% chance of rain.')
+  }
+  
 })
 
 //Geocoding
-//Address -> Lat/Long -> weather
+//Address -> Lat/Long -> Weather
 request({  url:urlGeo, json: true}, (error, response) => {
   const location = response.body.features[0].place_name
   const latitude = response.body.features[0].center[1]
   const longitude = response.body.features[0].center[0]
-  console.log('Location: ' + location)
-  console.log(latitude, longitude)
+
+  if(error) {
+    console.log('Unable to connect to geolocation service')
+  }else if(response.body.features.length == 0) {
+    console.log('No matching location')
+  }else{
+    console.log('Location: ' + location)
+    console.log(latitude, longitude)
+  }
+  
 })
