@@ -28,7 +28,7 @@ request({  url:urlGeo, json: true}, (error, response) => {
 
   if(error) {
     console.log('Unable to connect to geolocation service')
-  }else if(response.body.features.length == 0) {
+  }else if(response.body.features.length === 0) {
     console.log('No matching location')
   }else{
     console.log('Location: ' + location)
